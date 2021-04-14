@@ -6,7 +6,7 @@
         <p>Checked in? {{booking.checked_in}}</p>
         <br>
         <button class="button" v-on:click="handleDelete(booking._id)">Delete Booking</button>
-        <button class="button" v-if="!booking.checked_in" v-on:click="handleCheckin(booking._id)">Check In</button>
+        <button class="button" v-if="!booking.checked_in" v-on:click="handleCheckin">Check In</button>
      </div>
   </section>
 </template>
@@ -23,8 +23,8 @@ export default {
       eventBus.$emit('delete-booking', id)
     },
 
-    handleCheckin(id){
-      eventBus.$emit('check-in-change', id)
+    handleCheckin: function() {
+      eventBus.$emit('check-in', this.booking)
     }
   },
 }

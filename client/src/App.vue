@@ -36,13 +36,15 @@ export default {
       })
     });
 
-    eventBus.$on('check-in-change', id => {
-      BookingService.updateBooking(id)
-      .then(() => {
-        const index = this.bookings.findIndex(booking => booking._id === id);
-        this.bookings[index].checked_in = true;
-    })
-  });
+    eventBus.$on('check-in', booking => {
+      const updatedBooking = {
+        ...booking, 
+        checked_in: true
+      };
+      BookingService.updateBooking(updatedBooking);
+        const index = this.bookings.findIndex(booking => booking._id === updatedBooking._id);
+        this.bookings.splice(index, 1, updatedBooking)
+    });
   
   },
 
